@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+    <title>Add Medical History</title>
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,sans-serif;
+        }
+
+        body{
+            background:#f5f3ff;
+            padding:30px;
+        }
+
+        .container{
+            max-width:1100px;
+            margin:auto;
+        }
+
+        .card{
+            background:white;
+            border-radius:25px;
+            padding:35px;
+            box-shadow:0 5px 25px rgba(0,0,0,0.1);
+        }
+
+        .title{
+            color:#6a11cb;
+            margin-bottom:30px;
+            font-size:32px;
+        }
+
+        .patient-box{
+            background:#faf7ff;
+            border-left:6px solid #8e2de2;
+            padding:25px;
+            border-radius:18px;
+            margin-bottom:35px;
+        }
+
+        .patient-box h2{
+            color:#6a11cb;
+            margin-bottom:15px;
+        }
+
+        .patient-box p{
+            margin-bottom:10px;
+            color:#555;
+        }
+
+        .form-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+            gap:25px;
+        }
+
+        .input-group{
+            display:flex;
+            flex-direction:column;
+        }
+
+        .input-group label{
+            margin-bottom:10px;
+            color:#555;
+            font-weight:bold;
+        }
+
+        .input-group input,
+        .input-group textarea{
+            padding:15px;
+            border:2px solid #ddd;
+            border-radius:15px;
+            outline:none;
+            transition:0.3s;
+            font-size:15px;
+        }
+
+        .input-group input:focus,
+        .input-group textarea:focus{
+            border-color:#8e2de2;
+            box-shadow:0 0 10px rgba(142,45,226,0.2);
+        }
+
+        textarea{
+            resize:none;
+            height:130px;
+        }
+
+        .full-width{
+            grid-column:1 / -1;
+        }
+
+        .submit-btn{
+            margin-top:30px;
+            background:linear-gradient(to right,#6a11cb,#8e2de2);
+            color:white;
+            border:none;
+            padding:15px 35px;
+            border-radius:15px;
+            font-size:17px;
+            cursor:pointer;
+            transition:0.4s;
+            box-shadow:0 5px 15px rgba(106,17,203,0.3);
+        }
+
+        .submit-btn:hover{
+            transform:translateY(-5px);
+            box-shadow:0 8px 20px rgba(106,17,203,0.5);
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1 class="title">
+
+            Add Medical History 🩺
+
+        </h1>
+
+        <!-- PATIENT DETAILS -->
+
+        <div class="patient-box">
+
+            <h2>{{ patient.name }}</h2>
+
+            <p>
+                <strong>Age :</strong>
+                {{ patient.age }}
+            </p>
+
+            <p>
+                <strong>Gender :</strong>
+                {{ patient.gender }}
+            </p>
+
+            <p>
+                <strong>Disease :</strong>
+                {{ patient.disease }}
+            </p>
+
+            <p>
+                <strong>Doctor :</strong>
+                {{ patient.doctor.name }}
+            </p>
+
+        </div>
+
+        <!-- FORM -->
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="form-grid">
+
+                <!-- DIAGNOSIS -->
+
+                <div class="input-group full-width">
+
+                    <label>Diagnosis</label>
+
+                    <textarea
+                    name="diagnosis"
+                    placeholder="Enter diagnosis details..."
+                    required></textarea>
+
+                </div>
+
+                <!-- PRESCRIPTION -->
+
+                <div class="input-group full-width">
+
+                    <label>Prescription</label>
+
+                    <textarea
+                    name="prescription"
+                    placeholder="Enter prescription..."
+                    required></textarea>
+
+                </div>
+
+                <!-- TREATMENT -->
+
+                <div class="input-group full-width">
+
+                    <label>Treatment</label>
+
+                    <textarea
+                    name="treatment"
+                    placeholder="Enter treatment details..."
+                    required></textarea>
+
+                </div>
+
+                <!-- VISIT DATE -->
+
+                <div class="input-group">
+
+                    <label>Visit Date</label>
+
+                    <input
+                    type="date"
+                    name="visit_date"
+                    required>
+
+                </div>
+
+                <!-- NEXT VISIT -->
+
+                <div class="input-group">
+
+                    <label>Next Visit Date</label>
+
+                    <input
+                    type="date"
+                    name="next_visit_date">
+
+                </div>
+
+                <!-- NOTES -->
+
+                <div class="input-group full-width">
+
+                    <label>Doctor Notes</label>
+
+                    <textarea
+                    name="notes"
+                    placeholder="Additional notes..."></textarea>
+
+                </div>
+
+            </div>
+
+            <!-- SUBMIT -->
+
+            <button type="submit"
+            class="submit-btn">
+
+                <i class="fa-solid fa-floppy-disk"></i>
+
+                Save Medical History
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

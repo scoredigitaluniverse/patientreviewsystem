@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Reviews</title>
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,sans-serif;
+        }
+
+        body{
+            background:#f5f3ff;
+            display:flex;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar{
+            width:260px;
+            height:100vh;
+            background:linear-gradient(180deg,#6a11cb,#8e2de2);
+            position:fixed;
+            padding-top:20px;
+        }
+
+        .logo{
+            text-align:center;
+            color:white;
+            font-size:28px;
+            font-weight:bold;
+            margin-bottom:40px;
+        }
+
+        .menu{
+            list-style:none;
+            padding:0 15px;
+        }
+
+        .menu li{
+            margin-bottom:15px;
+        }
+
+        .menu a{
+            text-decoration:none;
+            color:white;
+            display:flex;
+            align-items:center;
+            gap:15px;
+            padding:15px;
+            border-radius:15px;
+            transition:0.4s;
+        }
+
+        .menu a:hover{
+            background:white;
+            color:#6a11cb;
+            transform:translateX(10px);
+        }
+
+        /* MAIN */
+
+        .main-content{
+            margin-left:260px;
+            width:100%;
+            padding:30px;
+        }
+
+        .topbar{
+            background:white;
+            padding:25px;
+            border-radius:20px;
+            margin-bottom:30px;
+            box-shadow:0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .topbar h1{
+            color:#6a11cb;
+        }
+
+        /* REVIEW CARD */
+
+        .review-card{
+            background:white;
+            border-radius:20px;
+            padding:25px;
+            margin-bottom:25px;
+            box-shadow:0 5px 20px rgba(0,0,0,0.08);
+            border-left:6px solid #8e2de2;
+            transition:0.3s;
+        }
+
+        .review-card:hover{
+            transform:translateY(-5px);
+        }
+
+        .review-header{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-bottom:20px;
+            flex-wrap:wrap;
+        }
+
+        .review-user h2{
+            color:#6a11cb;
+            margin-bottom:8px;
+        }
+
+        .review-user p{
+            color:#666;
+            margin-bottom:5px;
+        }
+
+        .rating{
+            background:#fff4d6;
+            color:#ff9800;
+            padding:12px 18px;
+            border-radius:12px;
+            font-weight:bold;
+            font-size:16px;
+        }
+
+        .review-text{
+            color:#444;
+            line-height:1.8;
+            margin-top:15px;
+        }
+
+        .date{
+            margin-top:15px;
+            color:#999;
+            font-size:14px;
+        }
+
+        .empty-box{
+            background:white;
+            padding:50px;
+            border-radius:20px;
+            text-align:center;
+            box-shadow:0 5px 20px rgba(0,0,0,0.08);
+            color:#777;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+        <div class="logo">
+            Admin Panel
+        </div>
+
+        <ul class="menu">
+
+            <li>
+                <a href="/dashboard/">
+                    <i class="fa-solid fa-gauge"></i>
+                    Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="/view_doctors/">
+                    <i class="fa-solid fa-user-doctor"></i>
+                    Add Doctors
+                </a>
+            </li>
+
+            <li>
+                <a href="/view_patients/">
+                     <i class="fa-solid fa-bed-pulse"></i>
+                    Patients
+                </a>
+            </li>
+
+            <li>
+                <a href="/view_reviews/">
+                    <i class="fa-solid fa-star"></i>
+                    Reviews
+                </a>
+            </li>
+
+            <li>
+                <a href="/logout/">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Logout
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+<!-- MAIN CONTENT -->
+
+<div class="main-content">
+
+    <div class="topbar">
+
+        <h1>
+
+            Patient Reviews ⭐
+
+        </h1>
+
+    </div>
+
+    {% for review in reviews %}
+
+    <div class="review-card">
+
+        <div class="review-header">
+
+            <div class="review-user">
+
+                <h2>
+
+                    {{ review.patient.name }}
+
+                </h2>
+
+                <p>
+
+                    <strong>Doctor :</strong>
+
+                    Dr. {{ review.doctor.name }}
+
+                </p>
+
+                <p>
+
+                    <strong>Email :</strong>
+
+                    {{ review.patient.email }}
+
+                </p>
+
+            </div>
+
+            <div class="rating">
+
+                ⭐ {{ review.rating }}/5
+
+            </div>
+
+        </div>
+
+        <div class="review-text">
+
+            {{ review.review }}
+
+        </div>
+
+        <div class="date">
+
+            {{ review.created_at }}
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <div class="empty-box">
+
+        <h2>No Reviews Found</h2>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+</body>
+</html>

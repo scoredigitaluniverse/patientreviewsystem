@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+    <title>Doctor Review</title>
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,sans-serif;
+        }
+
+        body{
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            background:linear-gradient(135deg,#6a11cb,#8e2de2);
+            overflow:hidden;
+        }
+
+        /* BACKGROUND CIRCLES */
+
+        .circle{
+            position:absolute;
+            border-radius:50%;
+            background:rgba(255,255,255,0.1);
+            animation:float 6s infinite ease-in-out;
+        }
+
+        .circle:nth-child(1){
+            width:220px;
+            height:220px;
+            top:50px;
+            left:80px;
+        }
+
+        .circle:nth-child(2){
+            width:300px;
+            height:300px;
+            bottom:50px;
+            right:80px;
+            animation-delay:2s;
+        }
+
+        @keyframes float{
+
+            0%{
+                transform:translateY(0px);
+            }
+
+            50%{
+                transform:translateY(-20px);
+            }
+
+            100%{
+                transform:translateY(0px);
+            }
+
+        }
+
+        /* MODAL */
+
+        .review-modal{
+            position:relative;
+            width:100%;
+            max-width:520px;
+            background:white;
+            border-radius:30px;
+            padding:40px;
+            box-shadow:0 10px 40px rgba(0,0,0,0.2);
+            animation:popup 0.5s ease;
+            z-index:10;
+        }
+
+        @keyframes popup{
+
+            from{
+                opacity:0;
+                transform:scale(0.7);
+            }
+
+            to{
+                opacity:1;
+                transform:scale(1);
+            }
+
+        }
+
+        /* HEADER */
+
+        .review-header{
+            text-align:center;
+            margin-bottom:35px;
+        }
+
+        .review-header .icon{
+            width:90px;
+            height:90px;
+            background:linear-gradient(to right,#6a11cb,#8e2de2);
+            border-radius:50%;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            margin:auto;
+            margin-bottom:20px;
+            color:white;
+            font-size:40px;
+            box-shadow:0 8px 20px rgba(106,17,203,0.4);
+        }
+
+        .review-header h1{
+            color:#6a11cb;
+            margin-bottom:10px;
+        }
+
+        .review-header p{
+            color:#777;
+            font-size:15px;
+        }
+
+        /* FORM */
+
+        .input-group{
+            margin-bottom:25px;
+        }
+
+        .input-group label{
+            display:block;
+            margin-bottom:10px;
+            color:#555;
+            font-weight:bold;
+        }
+
+        .input-group input,
+        .input-group select,
+        .input-group textarea{
+            width:100%;
+            padding:15px;
+            border:2px solid #ddd;
+            border-radius:15px;
+            outline:none;
+            transition:0.3s;
+            font-size:15px;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus,
+        .input-group textarea:focus{
+            border-color:#8e2de2;
+            box-shadow:0 0 10px rgba(142,45,226,0.2);
+        }
+
+        textarea{
+            resize:none;
+            height:130px;
+        }
+
+        /* STARS */
+
+        .stars{
+            display:flex;
+            flex-direction:row-reverse;
+            justify-content:flex-end;
+            margin-top:10px;
+        }
+
+        .stars input{
+            display:none;
+        }
+
+        .stars label{
+            font-size:35px;
+            color:#ddd;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        .stars input:checked ~ label,
+        .stars label:hover,
+        .stars label:hover ~ label{
+            color:#ffb703;
+        }
+
+        /* BUTTON */
+
+        .submit-btn{
+            width:100%;
+            padding:16px;
+            border:none;
+            border-radius:15px;
+            background:linear-gradient(to right,#6a11cb,#8e2de2);
+            color:white;
+            font-size:17px;
+            cursor:pointer;
+            transition:0.4s;
+            box-shadow:0 5px 15px rgba(106,17,203,0.3);
+        }
+
+        .submit-btn:hover{
+            transform:translateY(-5px);
+            box-shadow:0 8px 25px rgba(106,17,203,0.5);
+        }
+
+        /* WAVE */
+
+        .wave{
+            display:inline-block;
+            animation:wave-animation 2s infinite;
+            transform-origin:70% 70%;
+        }
+
+        @keyframes wave-animation{
+
+            0%{ transform:rotate(0deg); }
+
+            10%{ transform:rotate(14deg); }
+
+            20%{ transform:rotate(-8deg); }
+
+            30%{ transform:rotate(14deg); }
+
+            40%{ transform:rotate(-4deg); }
+
+            50%{ transform:rotate(10deg); }
+
+            60%{ transform:rotate(0deg); }
+
+            100%{ transform:rotate(0deg); }
+
+        }
+
+    </style>
+
+</head>
+<body>
+
+<!-- BACKGROUND -->
+
+<div class="circle"></div>
+<div class="circle"></div>
+
+<!-- MODAL -->
+
+<div class="review-modal">
+
+    <!-- HEADER -->
+
+    <div class="review-header">
+
+        <div class="icon">
+
+            <i class="fa-solid fa-star"></i>
+
+        </div>
+
+        <h1>
+
+            Doctor Review 
+            <span class="wave">💜</span>
+
+        </h1>
+
+        <p>
+
+            Share your experience with your doctor
+
+        </p>
+
+    </div>
+
+    <!-- FORM -->
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <!-- DOCTOR -->
+
+        <div class="input-group">
+
+            <label>
+
+                <i class="fa-solid fa-user-doctor"></i>
+
+                Doctor Name
+
+            </label>
+
+            <input type="text"
+            value="Dr. {{ doctor.name }}"
+            readonly>
+
+        </div>
+
+        <!-- STAR RATING -->
+
+        <div class="input-group">
+
+            <label>
+
+                <i class="fa-solid fa-star"></i>
+
+                Rating
+
+            </label>
+
+            <div class="stars">
+
+                <input type="radio"
+                name="rating"
+                value="5"
+                id="star5">
+
+                <label for="star5">
+                    ★
+                </label>
+
+                <input type="radio"
+                name="rating"
+                value="4"
+                id="star4">
+
+                <label for="star4">
+                    ★
+                </label>
+
+                <input type="radio"
+                name="rating"
+                value="3"
+                id="star3">
+
+                <label for="star3">
+                    ★
+                </label>
+
+                <input type="radio"
+                name="rating"
+                value="2"
+                id="star2">
+
+                <label for="star2">
+                    ★
+                </label>
+
+                <input type="radio"
+                name="rating"
+                value="1"
+                id="star1">
+
+                <label for="star1">
+                    ★
+                </label>
+
+            </div>
+
+        </div>
+
+        <!-- REVIEW -->
+
+        <div class="input-group">
+
+            <label>
+
+                <i class="fa-solid fa-pen"></i>
+
+                Review
+
+            </label>
+
+            <textarea
+            name="review"
+            placeholder="Write your feedback here..."
+            required></textarea>
+
+        </div>
+
+        <!-- BUTTON -->
+
+        <button type="submit"
+        class="submit-btn">
+
+            <i class="fa-solid fa-paper-plane"></i>
+
+            Submit Review
+
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Doctor</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, sans-serif;
+        }
+
+        body{
+            background:#f5f3ff;
+            display:flex;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar{
+            width:260px;
+            height:100vh;
+            background:linear-gradient(180deg,#6a11cb,#8e2de2);
+            position:fixed;
+            left:0;
+            top:0;
+            padding-top:20px;
+            box-shadow:4px 0 20px rgba(0,0,0,0.2);
+        }
+
+        .logo{
+            color:white;
+            text-align:center;
+            font-size:28px;
+            font-weight:bold;
+            margin-bottom:40px;
+        }
+
+        .menu{
+            list-style:none;
+            padding:0 15px;
+        }
+
+        .menu li{
+            margin-bottom:15px;
+        }
+
+        .menu a{
+            text-decoration:none;
+            color:white;
+            display:flex;
+            align-items:center;
+            gap:15px;
+            padding:15px;
+            border-radius:15px;
+            transition:0.4s;
+            font-size:17px;
+        }
+
+        .menu a:hover,
+        .active{
+            background:white;
+            color:#6a11cb !important;
+            transform:translateX(10px);
+        }
+
+        .menu a i{
+            transition:0.4s;
+        }
+
+        .menu a:hover i{
+            transform:rotate(360deg);
+        }
+
+        /* MAIN CONTENT */
+
+        .main-content{
+            margin-left:260px;
+            width:100%;
+            padding:30px;
+        }
+
+        .topbar{
+            background:white;
+            padding:20px 30px;
+            border-radius:20px;
+            box-shadow:0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom:30px;
+        }
+
+        .topbar h1{
+            color:#6a11cb;
+        }
+
+        /* FORM */
+
+        .form-container{
+            background:white;
+            border-radius:25px;
+            padding:40px;
+            box-shadow:0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .form-title{
+            color:#6a11cb;
+            margin-bottom:30px;
+            font-size:28px;
+        }
+
+        .form-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+            gap:25px;
+        }
+
+        .input-group{
+            display:flex;
+            flex-direction:column;
+        }
+
+        .input-group label{
+            margin-bottom:10px;
+            color:#555;
+            font-weight:bold;
+        }
+
+        .input-group input,
+        .input-group select,
+        .input-group textarea{
+            padding:15px;
+            border:2px solid #ddd;
+            border-radius:15px;
+            outline:none;
+            transition:0.3s;
+            font-size:15px;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus,
+        .input-group textarea:focus{
+            border-color:#8e2de2;
+            box-shadow:0 0 10px rgba(142,45,226,0.2);
+        }
+
+        textarea{
+            resize:none;
+            height:120px;
+        }
+
+        .full-width{
+            grid-column:1 / -1;
+        }
+
+        /* BUTTON */
+
+        .btn-container{
+            margin-top:30px;
+        }
+
+        .submit-btn{
+            background:linear-gradient(to right,#6a11cb,#8e2de2);
+            color:white;
+            border:none;
+            padding:15px 35px;
+            border-radius:15px;
+            font-size:17px;
+            cursor:pointer;
+            transition:0.4s;
+            box-shadow:0 5px 15px rgba(106,17,203,0.3);
+        }
+
+        .submit-btn:hover{
+            transform:translateY(-5px);
+            box-shadow:0 8px 20px rgba(106,17,203,0.5);
+        }
+
+        /* WAVE */
+
+        .wave{
+            display:inline-block;
+            animation:wave-animation 2s infinite;
+            transform-origin:70% 70%;
+        }
+
+        @keyframes wave-animation{
+
+            0%{ transform:rotate(0deg); }
+            10%{ transform:rotate(14deg); }
+            20%{ transform:rotate(-8deg); }
+            30%{ transform:rotate(14deg); }
+            40%{ transform:rotate(-4deg); }
+            50%{ transform:rotate(10deg); }
+            60%{ transform:rotate(0deg); }
+            100%{ transform:rotate(0deg); }
+
+        }
+        
+
+    </style>
+
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+
+     <div class="sidebar">
+
+        <div class="logo">
+            Admin Panel
+        </div>
+
+        <ul class="menu">
+
+            <li>
+                <a href="/dashboard/">
+                    <i class="fa-solid fa-gauge"></i>
+                    Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="/view_doctors/">
+                    <i class="fa-solid fa-user-doctor"></i>
+                    Add Doctors
+                </a>
+            </li>
+
+            <li>
+                <a href="/view_patients/">
+                     <i class="fa-solid fa-bed-pulse"></i>
+                    Patients
+                </a>
+            </li>
+
+            <li>
+                <a href="/view_reviews/">
+                    <i class="fa-solid fa-star"></i>
+                    Reviews
+                </a>
+            </li>
+
+            <li>
+                <a href="/logout/">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Logout
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+    <!-- MAIN CONTENT -->
+
+    <div class="main-content">
+
+        <div class="topbar">
+
+            <h1>
+                Add Doctor 
+                <span class="wave">👨‍⚕️</span>
+            </h1>
+
+        </div>
+
+        <!-- FORM -->
+
+        <div class="form-container">
+
+            <h2 class="form-title">
+                Doctor Registration Form
+            </h2>
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <div class="form-grid">
+
+                    <div class="input-group">
+                        <label>Doctor Name</label>
+                        <input type="text" name="name" placeholder="Enter Doctor Name">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Email</label>
+                        <input type="email" name="email" placeholder="Enter Email">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Phone Number</label>
+                        <input type="text" name="phone" placeholder="Enter Phone Number">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Department</label>
+
+                        <select name="department">
+
+                            <option>Select Department</option>
+                            <option>Cardiology</option>
+                            <option>Neurology</option>
+                            <option>Orthopedic</option>
+                            <option>Pediatrics</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="input-group">
+                        <label>Experience</label>
+                        <input type="text" name="experience" placeholder="Years of Experience">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Qualification</label>
+                        <input type="text" name="qualification" placeholder="MBBS, MD...">
+                    </div>
+
+                    <div class="input-group full-width">
+                        <label>Address</label>
+                        <textarea name="address"
+                        placeholder="Enter Address"></textarea>
+                    </div>
+
+                </div>
+
+                <div class="btn-container">
+
+                    <button type="submit" class="submit-btn">
+
+                        <i class="fa-solid fa-plus"></i>
+                        Add Doctor
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

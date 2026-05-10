@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patients List</title>
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,sans-serif;
+        }
+
+        body{
+            background:#f5f3ff;
+            display:flex;
+        }
+
+        .sidebar{
+            width:260px;
+            height:100vh;
+            background:linear-gradient(180deg,#6a11cb,#8e2de2);
+            position:fixed;
+            padding-top:20px;
+        }
+
+        .logo{
+            text-align:center;
+            color:white;
+            font-size:28px;
+            font-weight:bold;
+            margin-bottom:40px;
+        }
+
+        .menu{
+            list-style:none;
+            padding:0 15px;
+        }
+
+        .menu li{
+            margin-bottom:15px;
+        }
+
+        .menu a{
+            text-decoration:none;
+            color:white;
+            display:flex;
+            align-items:center;
+            gap:15px;
+            padding:15px;
+            border-radius:15px;
+            transition:0.4s;
+        }
+
+        .menu a:hover,
+        .active{
+            background:white;
+            color:#6a11cb !important;
+            transform:translateX(10px);
+        }
+
+        .main-content{
+            margin-left:260px;
+            width:100%;
+            padding:30px;
+        }
+
+        .topbar{
+            background:white;
+            padding:20px;
+            border-radius:20px;
+            margin-bottom:30px;
+            box-shadow:0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .topbar h1{
+            color:#6a11cb;
+        }
+
+        .table-container{
+            background:white;
+            padding:30px;
+            border-radius:20px;
+            box-shadow:0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:20px;
+        }
+
+        table th{
+            background:#8e2de2;
+            color:white;
+            padding:15px;
+            text-align:left;
+        }
+
+        table td{
+            padding:15px;
+            border-bottom:1px solid #ddd;
+        }
+
+        table tr:hover{
+            background:#f3e8ff;
+        }
+
+        .btn{
+            border:none;
+            padding:8px 15px;
+            border-radius:10px;
+            cursor:pointer;
+            color:white;
+        }
+
+        .edit-btn{
+            background:#6a11cb;
+        }
+
+        .delete-btn{
+            background:#e63946;
+        }
+        .table-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.add-btn{
+    background:linear-gradient(to right,#6a11cb,#8e2de2);
+    color:white;
+    text-decoration:none;
+    padding:12px 22px;
+    border-radius:14px;
+    font-size:15px;
+    font-weight:bold;
+    transition:0.4s;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    box-shadow:0 5px 15px rgba(106,17,203,0.3);
+}
+
+.add-btn:hover{
+    transform:translateY(-5px);
+    box-shadow:0 8px 20px rgba(106,17,203,0.5);
+}
+
+    </style>
+
+</head>
+<body>
+
+  <div class="sidebar">
+
+        <div class="logo">
+            Admin Panel
+        </div>
+
+        <ul class="menu">
+
+            <li>
+                <a href="/dashboard/">
+                    <i class="fa-solid fa-gauge"></i>
+                    Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="/view_doctors/">
+                    <i class="fa-solid fa-user-doctor"></i>
+                    Add Doctors
+                </a>
+            </li>
+
+            <li>
+                <a href="/view_patients/">
+                     <i class="fa-solid fa-bed-pulse"></i>
+                    Patients
+                </a>
+            </li>
+
+            <li>
+                <a href="/view_reviews/">
+                    <i class="fa-solid fa-star"></i>
+                    Reviews
+                </a>
+            </li>
+
+            <li>
+                <a href="/logout/">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Logout
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+<div class="main-content">
+
+    <div class="topbar">
+        <h1>Patients List 🩺</h1>
+    </div>
+
+    <div class="table-container">
+        <div class="table-header">
+
+    <h2>All Patients</h2>
+
+    <a href="{% url 'add_patient' %}" class="add-btn">
+
+        <i class="fa-solid fa-bed-pulse"></i>
+        Add Patient
+
+    </a>
+
+</div>
+
+        <table>
+
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Disease</th>
+                <th>Doctor</th>
+                <th>Action</th>
+            </tr>
+
+            {% for patient in patients %}
+
+            <tr>
+
+                <td>{{ patient.id }}</td>
+                <td>{{ patient.name }}</td>
+                <td>{{ patient.age }}</td>
+                <td>{{ patient.gender }}</td>
+                <td>{{ patient.disease }}</td>
+                <td>{{ patient.doctor }}</td>
+
+                <td>
+
+                    <button class="btn edit-btn">
+                        Edit
+                    </button>
+
+                    <button class="btn delete-btn">
+                        Delete
+                    </button>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>

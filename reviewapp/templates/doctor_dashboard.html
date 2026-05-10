@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+    <title>Doctor Dashboard</title>
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,sans-serif;
+        }
+
+        body{
+            background:#f5f3ff;
+            display:flex;
+        }
+
+        .sidebar{
+            width:260px;
+            height:100vh;
+            background:linear-gradient(180deg,#6a11cb,#8e2de2);
+            position:fixed;
+            padding-top:20px;
+        }
+
+        .logo{
+            text-align:center;
+            color:white;
+            font-size:28px;
+            font-weight:bold;
+            margin-bottom:40px;
+        }
+
+        .menu{
+            list-style:none;
+            padding:0 15px;
+        }
+
+        .menu li{
+            margin-bottom:15px;
+        }
+
+        .menu a{
+            text-decoration:none;
+            color:white;
+            display:flex;
+            align-items:center;
+            gap:15px;
+            padding:15px;
+            border-radius:15px;
+            transition:0.4s;
+        }
+
+        .menu a:hover{
+            background:white;
+            color:#6a11cb;
+            transform:translateX(10px);
+        }
+
+        .main-content{
+            margin-left:260px;
+            width:100%;
+            padding:30px;
+        }
+
+        .topbar{
+            background:white;
+            padding:25px;
+            border-radius:20px;
+            margin-bottom:30px;
+            box-shadow:0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .topbar h1{
+            color:#6a11cb;
+        }
+
+        .table-container{
+            background:white;
+            padding:30px;
+            border-radius:20px;
+            box-shadow:0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:20px;
+        }
+
+        table th{
+            background:#8e2de2;
+            color:white;
+            padding:15px;
+            text-align:left;
+        }
+
+        table td{
+            padding:15px;
+            border-bottom:1px solid #ddd;
+        }
+
+        table tr:hover{
+            background:#f3e8ff;
+        }
+
+        .btn{
+            background:#6a11cb;
+            color:white;
+            padding:10px 18px;
+            border-radius:10px;
+            text-decoration:none;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="sidebar">
+
+    <div class="logo">
+        Doctor Panel
+    </div>
+
+    <ul class="menu">
+
+        <li>
+
+            <a href="#">
+
+                <i class="fa-solid fa-users"></i>
+
+                Assigned Patients
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="{% url 'logout' %}">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                Logout
+
+            </a>
+
+        </li>
+
+    </ul>
+
+</div>
+
+<div class="main-content">
+
+    <div class="topbar">
+
+        <h1>
+
+            Welcome Dr. {{ doctor.name }} 👨‍⚕️
+
+        </h1>
+
+    </div>
+
+    <div class="table-container">
+
+        <h2>Assigned Patients</h2>
+
+        <table>
+
+            <tr>
+
+                <th>ID</th>
+
+                <th>Name</th>
+
+                <th>Age</th>
+
+                <th>Disease</th>
+
+                <th>Action</th>
+
+            </tr>
+
+            {% for patient in patients %}
+
+            <tr>
+
+                <td>{{ patient.id }}</td>
+
+                <td>{{ patient.name }}</td>
+
+                <td>{{ patient.age }}</td>
+
+                <td>{{ patient.disease }}</td>
+
+                <td>
+
+                    <a href="{% url 'patient_details' patient.id %}"
+                    class="btn">
+
+                        View Details
+
+                    </a>
+
+
+                    <a href="{% url 'add_medical_history' patient.id %}"
+                    class="btn">
+
+                        Add History
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>
